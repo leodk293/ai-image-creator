@@ -32,7 +32,7 @@ npm install
 ###  Set up environment variables
 touch .env.local
 MONGODB_URI=your_mongodb_connection_string
-NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:your_port_development
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 NEXTAUTH_SECRET=your_secret_key
