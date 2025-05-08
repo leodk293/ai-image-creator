@@ -22,8 +22,8 @@ Users can sign in with their **Google account**, create and manage blog posts, a
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/leodk293/blog
-cd blog
+git clone https://github.com/leodk293/next-auth-setup.git
+cd ai-image-creator
 
 ###  Install dependencies
 
