@@ -147,12 +147,6 @@ export default function AiGeneratorPage() {
       }
 
       generateImage(prompt, model.url);
-
-      /*console.log("Successfully submitted prompt:", {
-        prompt,
-        model,
-        imageCount,
-      });*/
     } catch (error) {
       console.error("Error in form submission:", error);
       setError("Something went wrong. Please try again.");
@@ -180,7 +174,7 @@ export default function AiGeneratorPage() {
         <div className="text-center mt-10">
           <h1 className="text-3xl font-bold text-black dark:text-gray-200">
             <Typewriter words={[`Welcome`]} loop={1} typeSpeed={55} />{" "}
-            <span className="bg-gradient-to-r bg-clip-text text-transparent from-blue-500 to-purple-600">
+            <span className="bg-gradient-to-r capitalize bg-clip-text text-transparent from-blue-500 to-purple-600">
               {session?.user?.name && (
                 <Typewriter
                   words={[`${session?.user?.name}`]}
