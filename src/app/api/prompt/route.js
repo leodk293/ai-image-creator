@@ -47,17 +47,25 @@ export const GET = async (request) => {
         await connectMongoDB();
         const url = new URL(request.url);
         const userId = url.searchParams.get("userId");
-        const user = await User.findById(userId);
-        if (user) {
-            const prompts = await Prompt.find()
-            return NextResponse.json(prompts);
+
+        if (!userId) {
+            return NextResponse.json(
+                { message: "User ID required" },
+                { status: 400 }
+            );
         }
-        else {
+
+        const user = await User.findById(userId);
+        if (!user) {
             return NextResponse.json(
                 { message: "User not found" },
                 { status: 404 }
             );
         }
+
+        // Query prompts directly with userId filter instead of filtering in memory
+        const prompts = await Prompt.find({ userId: userId });
+        return NextResponse.json(prompts);
 
     } catch (error) {
         console.error("Error fetching prompts:", error);

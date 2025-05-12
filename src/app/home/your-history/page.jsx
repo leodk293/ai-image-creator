@@ -23,7 +23,7 @@ export default function HistoryPage() {
       const data = await response.json();
       setPromptHistory({
         error: false,
-        data: data.filter((prompt) => prompt.userId === session?.user?.id),
+        data: data,
         loading: false,
       });
     } catch (error) {
