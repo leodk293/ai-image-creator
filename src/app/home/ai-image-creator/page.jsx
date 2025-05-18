@@ -9,6 +9,7 @@ import HistoryBtn from "@/app/components/HistoryBtn";
 import examplePrompts from "@/app/prompt";
 import { Typewriter } from "react-simple-typewriter";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AiGeneratorPage() {
   const { data: session } = useSession();
@@ -170,7 +171,7 @@ export default function AiGeneratorPage() {
   return (
     <>
       <HistoryBtn />
-      <main className="flex flex-col z-[-5px] gap-4 mx-auto max-w-4xl">
+      <main className="flex flex-col z-[-5px] gap-4 mx-auto max-w-5xl">
         <div className="text-center mt-10">
           <h1 className="text-3xl font-bold text-black dark:text-gray-200">
             <Typewriter words={[`Welcome`]} loop={1} typeSpeed={55} />{" "}
@@ -261,7 +262,11 @@ export default function AiGeneratorPage() {
                 <>
                   <option value="">Select AI Model</option>
                   {models.map((modelOption) => (
-                    <option key={nanoid(10)} value={modelOption.api_url}>
+                    <option
+                      className=" text-[15px] italic font-medium uppercase"
+                      key={nanoid(10)}
+                      value={modelOption.api_url}
+                    >
                       {modelOption.name}
                     </option>
                   ))}
@@ -321,7 +326,9 @@ export default function AiGeneratorPage() {
                 className="flex flex-col gap-2 bg-gray-50 shadow rounded-lg p-3 overflow-hidden dark:bg-gray-900"
               >
                 <div className="relative group">
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     src={imageUrl}
                     alt={`Generated image ${index + 1}`}
                     className={`${getImageClasses()} object-cover rounded-lg shadow-sm`}

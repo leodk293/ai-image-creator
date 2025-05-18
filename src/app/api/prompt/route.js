@@ -63,7 +63,6 @@ export const GET = async (request) => {
             );
         }
 
-        // Query prompts directly with userId filter instead of filtering in memory
         const prompts = await Prompt.find({ userId: userId });
         return NextResponse.json(prompts);
 
