@@ -10,10 +10,88 @@ import examplePrompts from "@/app/prompt";
 import { Typewriter } from "react-simple-typewriter";
 import Link from "next/link";
 import Image from "next/image";
+import { Poetsen_One } from "next/font/google";
+import {
+  prompts_1,
+  prompts_2,
+  prompts_3,
+  prompts_4,
+  prompts_5,
+} from "@/app/randomPropmts";
+
+const poetsenOne = Poetsen_One({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function AiGeneratorPage() {
+  const [prompts, setPrompts] = useState([]);
+
+  function getRandomPrompt() {
+    const randomIndex = Math.floor(Math.random() * 5);
+    switch (randomIndex) {
+      case 1:
+        setPrompts(prompts_1);
+        break;
+      case 2:
+        setPrompts(prompts_2);
+        break;
+      case 3:
+        setPrompts(prompts_3);
+        break;
+      case 4:
+        setPrompts(prompts_4);
+        break;
+      case 5:
+        setPrompts(prompts_5);
+        break;
+    }
+  }
+
+  useEffect(() => {
+    getRandomPrompt();
+  }, []);
+
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user?.id;
+
+  const date = new Date();
+  const day = date.getDay();
+
+  const [dayValue, setDay] = useState("");
+
+  function getDayValue(day) {
+    switch (day) {
+      case 1:
+        setDay("Monday");
+        break;
+      case 2:
+        setDay("Tuesday");
+        break;
+      case 3:
+        setDay("Wednesday");
+        break;
+      case 4:
+        setDay("Thursday");
+        break;
+      case 5:
+        setDay("Friday");
+        break;
+      case 6:
+        setDay("Saturday");
+        break;
+      case 7:
+        setDay("Sunday");
+        break;
+      default:
+        setDay("Invalid day");
+    }
+  }
+
+  useEffect(() => {
+    getDayValue(day);
+  }, [day]);
 
   const [model, setModel] = useState({
     name: "",
@@ -92,25 +170,44 @@ export default function AiGeneratorPage() {
       }
 
       const responses = await Promise.all(imagePromises);
-
       const imageUrls = [];
+
       for (const response of responses) {
         if (!response.ok) {
           throw new Error(`Error generating image: ${response.status}`);
         }
         const result = await response.blob();
-        console.log(URL.createObjectURL(result));
         const imageUrl = URL.createObjectURL(result);
         imageUrls.push(imageUrl);
       }
 
-      //console.log(`Generated ${imageUrls.length} images successfully`);
+      const promptData = {
+        content: prompt,
+        model: model.name,
+        userId: session.user.id,
+      };
+
+      const saveResponse = await fetch(`/api/prompt`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(promptData),
+      });
+
+      if (!saveResponse.ok) {
+        console.error(
+          "Failed to save prompt history, but images were generated successfully"
+        );
+      }
 
       setGeneratedImages(imageUrls);
       setError(null);
     } catch (error) {
       console.error("Error generating images:", error);
-      setError("Failed to generate images. Please try again.");
+      setError(
+        "Failed to generate images. Please select another model and again."
+      );
       setGeneratedImages([]);
     } finally {
       setIsSubmitting(false);
@@ -129,24 +226,6 @@ export default function AiGeneratorPage() {
     setError(null);
 
     try {
-      const promptData = {
-        content: prompt,
-        model: model.name,
-        userId: session.user.id,
-      };
-
-      const saveResponse = await fetch(`/api/prompt`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(promptData),
-      });
-
-      if (!saveResponse.ok) {
-        throw new Error("Failed to save prompt history");
-      }
-
       generateImage(prompt, model.url);
     } catch (error) {
       console.error("Error in form submission:", error);
@@ -173,27 +252,41 @@ export default function AiGeneratorPage() {
       <HistoryBtn />
       <main className="flex flex-col z-[-5px] gap-4 mx-auto max-w-5xl">
         <div className="text-center mt-10">
-          <h1 className="text-3xl font-bold text-black dark:text-gray-200">
-            <Typewriter words={[`Welcome`]} loop={1} typeSpeed={55} />{" "}
+          <h1
+            className={`text-3xl font-bold text-black dark:text-gray-200 ${poetsenOne.className} md:text-5xl`}
+          >
+            <Typewriter words={[`Happy ${dayValue}`]} loop={1} typeSpeed={60} />{" "}
             <span className="bg-gradient-to-r capitalize bg-clip-text text-transparent from-blue-500 to-purple-600">
               {session?.user?.name && (
                 <Typewriter
-                  words={[`${session?.user?.name}`]}
+                  words={[`${session?.user?.name?.split(" ")[0]} !!!`]}
                   loop={1}
                   cursor
                   cursorStyle="/"
-                  typeSpeed={55}
+                  typeSpeed={60}
                 />
               )}
             </span>
           </h1>
-          <p className="text-gray-600 mt-2 dark:text-gray-200">
+          <p className="text-gray-600 font-medium text-xl mt-5 dark:text-gray-200">
             What would you like to create today?
           </p>
         </div>
 
+        <div className=" mt-10 font-medium flex flex-wrap justify-center gap-5">
+          {prompts.map((prompt) => (
+            <button
+              onClick={() => setPrompt(prompt)}
+              className=" w-[200px] h-[130px] leading-7 italic font-medium cursor-pointer border border-gray-300 rounded-lg p-5 hover:bg-gray-50 duration-200 dark:hover:bg-gray-800"
+              key={nanoid(10)}
+            >
+              {prompt}
+            </button>
+          ))}
+        </div>
+
         <form
-          className="flex flex-col gap-4 border border-transparent shadow p-3 rounded-[5px] bg-white w-full dark:border dark:border-gray-700 dark:bg-gray-950"
+          className="flex flex-col mt-10 gap-4 border border-transparent shadow p-3 rounded-[5px] bg-white w-full dark:border dark:border-gray-700 dark:bg-gray-950"
           onSubmit={handleSubmit}
         >
           <div className="border border-transparent p-2 rounded-[5px] bg-[#653bfc] flex flex-row gap-5">

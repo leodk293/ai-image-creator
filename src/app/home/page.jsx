@@ -13,6 +13,13 @@ import {
   PlayCircle,
 } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
+import { Poetsen_One } from "next/font/google";
+
+const poetsenOne = Poetsen_One({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 const HomePage = () => {
   const steps = [
@@ -40,7 +47,7 @@ const HomePage = () => {
     <main className="container text-black mx-auto max-w-7xl py-12 px-4 dark:text-white">
       <section className="flex flex-col items-center text-center mb-16">
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className={`text-4xl ${poetsenOne.className} md:text-5xl font-bold mb-6`}>
             <Typewriter
               words={[
                 "Welcome to AI-IMAGE-CREATOR",
