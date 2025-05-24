@@ -16,9 +16,9 @@ import { Typewriter } from "react-simple-typewriter";
 import { Poetsen_One } from "next/font/google";
 
 const poetsenOne = Poetsen_One({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const HomePage = () => {
@@ -47,7 +47,9 @@ const HomePage = () => {
     <main className="container text-black mx-auto max-w-7xl py-12 px-4 dark:text-white">
       <section className="flex flex-col items-center text-center mb-16">
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
-          <h1 className={`text-4xl ${poetsenOne.className} md:text-5xl font-bold mb-6`}>
+          <h1
+            className={`text-4xl ${poetsenOne.className} md:text-5xl font-bold mb-6`}
+          >
             <Typewriter
               words={[
                 "Welcome to AI-IMAGE-CREATOR",
@@ -113,7 +115,7 @@ const HomePage = () => {
               <div className="rounded-lg overflow-hidden shadow-lg aspect-video">
                 <iframe
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/oLE07DlINaY?si=AOJvrkgnLk2YNUUi"
+                  src="https://www.youtube.com/embed/IbmKTiq8yns?si=gZIxxpOar-_hLEAR"
                   title="AI Image Generator Demo"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -127,7 +129,7 @@ const HomePage = () => {
 
         <Link
           href="/home/ai-image-creator"
-          className="flex flex-row mt-10 text-xl items-center gap-2 bg-black dark:bg-transparent text-white dark:text-white px-6 py-3 rounded-full font-medium transition-all hover:opacity-90 hover:scale-105"
+          className="flex flex-row mt-10 text-xl items-center border border-black gap-2 bg-transparent dark:bg-transparent text-black dark:text-white dark:border-white px-6 py-3 rounded-full font-medium transition-all hover:opacity-90 hover:scale-105"
         >
           <span className=" self-center">Start Creating</span>
           <ArrowRight className=" self-center" size={30} />

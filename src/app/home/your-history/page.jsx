@@ -45,6 +45,25 @@ export default function HistoryPage() {
       console.error(error.message);
     }
   }
+
+  async function handleDeleteAll() {
+    try {
+      const response = await fetch(
+        `/api/prompt/delete-all?userId=${session?.user?.id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      await fetchHistoryPrompt();
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   useEffect(() => {
     fetchHistoryPrompt();
   }, [session?.user?.id]);
@@ -57,10 +76,24 @@ export default function HistoryPage() {
             size={30}
             strokeWidth={2.5}
           />
-          <span className=" self-center dark:text-gray-200">Your Prompt History</span>
+          <span className=" self-center dark:text-gray-200">
+            Your Prompt History
+          </span>
         </h1>
         <span className=" w-full h-[2px] bg-black dark:bg-gray-200" />
       </div>
+
+      {promptHistory.data.length === 0 ? (
+        ""
+      ) : (
+        <button
+          onClick={handleDeleteAll}
+          className="border border-black w-[15%] cursor-pointer bg-transparent text-black rounded-[5px] px-4 py-2 font-medium hover:bg-gray-100 duration-300 dark:text-white dark:border-white dark:hover:bg-gray-800"
+        >
+          Delete All
+        </button>
+      )}
+
       {promptHistory.loading ? (
         <Loader />
       ) : promptHistory.error ? (
