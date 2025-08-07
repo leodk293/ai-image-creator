@@ -130,7 +130,7 @@ export default function HistoryPage() {
           ))}
         </ul>
       ) : (
-        <p className=" mt-10 text-center italic text-xl font-bold text-gray-500 md:h-[10rem]">
+        <p className=" mt-10 text-center text-xl font-bold text-gray-900 md:h-[10rem] dark:text-gray-200">
           No prompts found.
         </p>
       )}

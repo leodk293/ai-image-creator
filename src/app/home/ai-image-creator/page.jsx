@@ -11,6 +11,7 @@ import { Typewriter } from "react-simple-typewriter";
 import Link from "next/link";
 import Image from "next/image";
 import { Poetsen_One } from "next/font/google";
+import { Cousine } from "next/font/google";
 import {
   prompts_1,
   prompts_2,
@@ -23,6 +24,11 @@ const poetsenOne = Poetsen_One({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
+});
+
+const cousine = Cousine({
+  weight: "400",
+  subsets: ["latin"],
 });
 
 export default function AiGeneratorPage() {
@@ -277,7 +283,7 @@ export default function AiGeneratorPage() {
           {prompts.map((prompt) => (
             <button
               onClick={() => setPrompt(prompt)}
-              className=" w-[200px] h-[130px] leading-7 italic font-medium cursor-pointer border border-gray-300 rounded-lg p-5 hover:bg-gray-50 duration-200 dark:hover:bg-gray-800"
+              className={` ${cousine.className} w-[200px] h-[130px] leading-7 font-medium cursor-pointer border border-gray-300 rounded-lg p-5 hover:bg-gray-50 duration-200 dark:hover:bg-gray-800`}
               key={nanoid(10)}
             >
               {prompt}

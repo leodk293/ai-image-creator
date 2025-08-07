@@ -4,9 +4,9 @@ import { use } from "react";
 import imagesExamples from "@/app/generated_images_example";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Share2, Download } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 
-const ImagePage = ({ params }) => {
+const ShowcasedImagePage = ({ params }) => {
   const resolvedParams = use(params);
   const id = resolvedParams.image_id;
   const currentImage = imagesExamples[id];
@@ -81,7 +81,6 @@ const ImagePage = ({ params }) => {
             <Download size={18} />
             <span>Download Image</span>
           </button>
-
         </div>
       </div>
 
@@ -118,4 +117,4 @@ const ImagePage = ({ params }) => {
   );
 };
 
-export default ImagePage;
+export default ShowcasedImagePage;

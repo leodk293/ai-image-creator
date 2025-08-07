@@ -14,11 +14,23 @@ import {
 } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
 import { Poetsen_One } from "next/font/google";
+import { Unbounded } from "next/font/google";
+import { Fredoka } from "next/font/google";
 
 const poetsenOne = Poetsen_One({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
+});
+
+const unbounded = Unbounded({
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const fredoka = Fredoka({
+  weight: "400",
+  subsets: ["latin"],
 });
 
 const HomePage = () => {
@@ -139,7 +151,11 @@ const HomePage = () => {
       <section className="mt-12">
         <div className="flex items-center justify-center gap-3 mb-10">
           <Sparkles className="text-yellow-500" size={24} />
-          <h2 className="text-3xl font-bold text-center">Gallery Showcase</h2>
+          <h2
+            className={`text-3xl ${unbounded.className} font-bold text-center`}
+          >
+            Gallery Showcase
+          </h2>
           <Sparkles className="text-yellow-500" size={24} />
         </div>
 
@@ -157,7 +173,11 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
-                  <p className="text-white font-medium p-4">{image.prompt}</p>
+                  <p
+                    className={` ${fredoka.className} text-white font-medium p-4`}
+                  >
+                    {image.prompt}
+                  </p>
                 </div>
               </div>
             </Link>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import googleLogo from "../assets/google-logo.png";
 import { signIn, useSession } from "next-auth/react";
 
-const SignUp = () => {
+const LoginPage = () => {
   const { status, data: session } = useSession();
 
   async function handleSignin() {
@@ -61,7 +61,7 @@ const SignUp = () => {
                 height={20}
                 className="object-contain"
               />
-              <span className="font-medium">Sign in with Google</span>
+              <span className="font-medium">Login with Google</span>
             </button>
 
             <p className="text-center text-sm text-gray-500 mt-6 dark:text-gray-200">
@@ -115,4 +115,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default LoginPage;

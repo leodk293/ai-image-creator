@@ -41,7 +41,7 @@ export default function Nav() {
           className=" border border-transparent cursor-pointer rounded-[50px] px-5 py-2 bg-blue-900 text-white flex flex-row gap-2 hover:bg-blue-800"
         >
           <LogOut size={28} color="#ffffff" />
-          <p className=" self-center">Signout </p>
+          <p className=" self-center">Logout </p>
         </button>
       </div>
     </nav>
