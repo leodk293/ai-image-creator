@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <div className="min-h-screen">{{ children }}</div>
           </ThemeProvider>
         </NextAuthProvider>
       </body>
